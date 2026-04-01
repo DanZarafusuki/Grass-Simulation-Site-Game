@@ -101,7 +101,7 @@ function update_plot(i,j){
     switch (grass_grid[i][j]) {
         
     case 0: //dirt
-        let sprout_threshold = 0.99999
+        let sprout_threshold = 1 //0.99999
         for (const [dx, dy] of dirs) {
             const ni = i + dx;
             const nj = j + dy;
@@ -170,10 +170,31 @@ function update_plot(i,j){
 
 
 
-canvas.addEventListener('click', click_canvas);
+canvas.addEventListener('click', drag_canvas);
 
-function click_canvas(event)
+var pointerdown =false
+canvas.addEventListener('pointerdown', (event) => {
+
+  pointerdown = true
+
+});
+canvas.addEventListener('pointerup', (event) => {
+
+  pointerdown = false
+
+});
+canvas.addEventListener('pointermove', (event) => {
+
+  if( pointerdown)
+    drag_canvas(event)
+
+});
+    
+
+
+function drag_canvas(event)
 {
+
     let x_index = Math.floor(event.offsetX/plot_x_adjusted) 
     let y_index = Math.floor(event.offsetY/plot_y_adjusted)
 
