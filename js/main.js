@@ -226,7 +226,7 @@ canvas.addEventListener('pointermove', (event) => {
 
 function drag_accuracy_cal(start_x,start_y,end_x,end_y)
 {
-    return (Math.abs(start_x - end_x)/plot_x_adjusted) + (Math.abs(end_x-end_y)/plot_y_adjusted)
+    return (Math.abs(start_x - end_x)/plot_x_adjusted) + (Math.abs(start_y-end_y)/plot_y_adjusted)
 }
 
 function drag_canvas(event)
