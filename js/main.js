@@ -25,6 +25,8 @@ const plot_y_adjusted = (displayHeight*plot_y)/500
 
 const drag_accuracy = 10
 
+const update_speed_skip = 3
+const update_speed = 1
 
 for (let i = 0; i < size_x; i++) {
     grass_grid[i] = []
@@ -55,11 +57,28 @@ function gameLoop(time) {
     // lastTime = time;
 
     // update(deltaTime);
-    update();
+    //update();
     render();
 
     requestAnimationFrame(gameLoop);
 }
+
+
+
+
+const intervalId = setInterval(() => {
+    for(let i = 0; i <update_speed_skip;i++)
+    {
+        update()
+    }
+}, update_speed);
+
+
+
+
+
+
+
 
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
