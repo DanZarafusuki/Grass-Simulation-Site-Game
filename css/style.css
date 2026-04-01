@@ -1,0 +1,14 @@
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #myCanvas {
+        width: 95vw;   /* fill full screen width */
+        height: 95vh;  /* fill full screen height */
+        margin: 20px;
+        display: block;
+        image-rendering: pixelated; /* keeps crisp pixels */
+    }
