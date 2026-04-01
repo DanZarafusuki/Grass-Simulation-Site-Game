@@ -170,12 +170,24 @@ function update_plot(i,j){
 
 
 
-canvas.addEventListener('click', drag_canvas);
 
 var pointerdown =false
+
+var last_event_x
+var last_event_y
+
+canvas.addEventListener('click', (event) => {
+    last_event_x = event.offsetX
+    last_event_y = event.offsetY
+    drag_canvas(event)
+});
+
+
 canvas.addEventListener('pointerdown', (event) => {
 
   pointerdown = true
+  last_event_x = event.offsetX
+  last_event_y = event.offsetY
 
 });
 canvas.addEventListener('pointerup', (event) => {
@@ -194,12 +206,28 @@ canvas.addEventListener('pointermove', (event) => {
 
 function drag_canvas(event)
 {
+    let accuracy = 5
 
-    let x_index = Math.floor(event.offsetX/plot_x_adjusted) 
-    let y_index = Math.floor(event.offsetY/plot_y_adjusted)
+    
+    let x_index 
+    let y_index 
+
+    index_list = []
+    let diffx = (event.offsetX - last_event_x)/accuracy  
+    let diffy = (event.offsetY - last_event_y) /accuracy
 
 
-    place_flower(x_index,y_index)
+    for (let i = 0; i <=accuracy; i++)
+    {
+        let x_index = Math.floor((last_event_x + diffx*i)/plot_x_adjusted) 
+        let y_index = Math.floor((last_event_y +diffy*i)/plot_y_adjusted)
+        place_flower(x_index,y_index)
+    }
+
+
+
+    last_event_x = event.offsetX
+    last_event_y = event.offsetY
 
 }
 
