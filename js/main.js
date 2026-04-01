@@ -23,6 +23,8 @@ const displayHeight = canvas.clientHeight
 const plot_x_adjusted = (displayWidth*plot_x)/1000 
 const plot_y_adjusted = (displayHeight*plot_y)/500
 
+const drag_accuracy = 10
+
 
 for (let i = 0; i < size_x; i++) {
     grass_grid[i] = []
@@ -206,18 +208,18 @@ canvas.addEventListener('pointermove', (event) => {
 
 function drag_canvas(event)
 {
-    let accuracy = 5
+
 
     
     let x_index 
     let y_index 
 
     index_list = []
-    let diffx = (event.offsetX - last_event_x)/accuracy  
-    let diffy = (event.offsetY - last_event_y) /accuracy
+    let diffx = (event.offsetX - last_event_x)/drag_accuracy  
+    let diffy = (event.offsetY - last_event_y) /drag_accuracy
 
 
-    for (let i = 0; i <=accuracy; i++)
+    for (let i = 0; i <=drag_accuracy; i++)
     {
         let x_index = Math.floor((last_event_x + diffx*i)/plot_x_adjusted) 
         let y_index = Math.floor((last_event_y +diffy*i)/plot_y_adjusted)
