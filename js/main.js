@@ -23,7 +23,7 @@ const displayHeight = canvas.clientHeight
 const plot_x_adjusted = (displayWidth*plot_x)/1000 
 const plot_y_adjusted = (displayHeight*plot_y)/500
 
-const drag_accuracy = 10
+
 
 const update_speed_skip = 3
 const update_speed = 1
@@ -224,10 +224,15 @@ canvas.addEventListener('pointermove', (event) => {
 });
     
 
+function drag_accuracy_cal(start_x,start_y,end_x,end_y)
+{
+    return (Math.abs(start_x - end_x)/plot_x_adjusted) + (Math.abs(end_x-end_y)/plot_y_adjusted)
+}
 
 function drag_canvas(event)
 {
 
+    let drag_accuracy = drag_accuracy_cal(last_event_x,last_event_y,event.offsetX,event.offsetY)
 
     
     let x_index 
