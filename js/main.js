@@ -12,16 +12,23 @@ const dirs = [
     [-1, 0]   // up
 ]
 
-const color_matching = ["#241111","#11241a","#008100","#e96c06"]
+const color_matching = ["#241111","#11241a","#008100","#e96c06","#82b7d6","#d894c7"]
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
+
+const displayWidth = canvas.clientWidth;
+const displayHeight = canvas.clientHeight
+
+const plot_x_adjusted = (displayWidth*plot_x)/1000 
+const plot_y_adjusted = (displayHeight*plot_y)/500
+
 
 for (let i = 0; i < size_x; i++) {
     grass_grid[i] = []
     grass_grid_temp[i] = []
     for (let j = 0; j < size_y; j++) {
-        grass_grid[i][j] = 1
+        grass_grid[i][j] = 0
 }
 }
 grass_grid[-1] = []
@@ -94,7 +101,7 @@ function update_plot(i,j){
     switch (grass_grid[i][j]) {
         
     case 0: //dirt
-        let sprout_threshold = 1//0.99999
+        let sprout_threshold = 0.99999
         for (const [dx, dy] of dirs) {
             const ni = i + dx;
             const nj = j + dy;
@@ -159,4 +166,29 @@ function update_plot(i,j){
     //     grass_grid_temp[i][j] = (grass_grid[i][j]+1)%4   
     // else   
     //     grass_grid_temp[i][j] = grass_grid[i][j]; // keep current state
+}
+
+
+
+canvas.addEventListener('click', click_canvas);
+
+function click_canvas(event)
+{
+    let x_index = Math.floor(event.offsetX/plot_x_adjusted) 
+    let y_index = Math.floor(event.offsetY/plot_y_adjusted)
+
+
+    place_flower(x_index,y_index)
+
+}
+
+function place_flower(x_index,y_index)
+{
+    let flower_type
+    let r = Math.random();
+    if (r>0.5)
+        flower_type = 4
+    else
+        flower_type = 5
+    grass_grid[x_index][y_index] = flower_type
 }
