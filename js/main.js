@@ -200,7 +200,7 @@ var last_event_y
 canvas.addEventListener('click', (event) => {
     last_event_x = event.offsetX
     last_event_y = event.offsetY
-    drag_canvas(event)
+    click_canvas(event)
 });
 
 
@@ -226,7 +226,7 @@ canvas.addEventListener('pointermove', (event) => {
 
 function drag_accuracy_cal(start_x,start_y,end_x,end_y)
 {
-    return (Math.abs(start_x - end_x)/plot_x_adjusted) + (Math.abs(start_y-end_y)/plot_y_adjusted)
+    return Math.min((Math.abs(start_x - end_x)/plot_x_adjusted) + (Math.abs(start_y-end_y)/plot_y_adjusted))
 }
 
 function drag_canvas(event)
@@ -256,6 +256,15 @@ function drag_canvas(event)
     last_event_y = event.offsetY
 
 }
+
+function click_canvas(event)
+{
+
+    let x_index = Math.floor((last_event_x)/plot_x_adjusted) 
+    let y_index = Math.floor((last_event_y)/plot_y_adjusted)
+    place_flower(x_index,y_index)
+}
+
 
 function place_flower(x_index,y_index)
 {
